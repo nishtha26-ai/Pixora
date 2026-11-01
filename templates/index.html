@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080d0c">
+    <title>pixora AI | Computer Vision Studio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <a href="/" class="brand">✳ Pixora<span>.ai</span></a>
+
+        <p class="eyebrow">WORKSPACE</p>
+        <nav class="nav-links">
+            <a href="#overview" class="nav-link active">▦ Overview</a>
+            <a href="#studio" class="nav-link">◎ Live Studio</a>
+            <a href="#analytics" class="nav-link">⌁ Analytics</a>
+            <a href="#history" class="nav-link">◷ History</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="system-card">
+                <span class="status-dot"></span> SYSTEM STATUS
+                <h3 id="system-status">Engine ready</h3>
+                <p>Python · OpenCV · MediaPipe</p>
+            </div>
+        </div>
+    </aside>
+
+    <header class="topbar">
+        <div>Workspace / <strong>Overview</strong></div>
+        <span class="status-pill">● LOCAL SYSTEM</span>
+    </header>
+
+    <main class="main-content" id="overview">
+
+        <section class="welcome-section">
+            <div>
+                <p class="eyebrow">COMPUTER VISION STUDIO</p>
+                <h1>Your gestures,<br><span>intelligently understood.</span></h1>
+                <p class="muted">Real-time hand tracking and AI gesture recognition.</p>
+            </div>
+            <a class="primary-button" href="#studio">Open Live Studio ↗</a>
+        </section>
+
+        <section class="stats-grid">
+            <article class="stat-card">
+                <p>SESSION STATUS</p>
+                <h2 id="session-status">READY</h2>
+                <small id="camera-status">Camera disconnected</small>
+            </article>
+
+            <article class="stat-card">
+                <p>CURRENT GESTURE</p>
+                <h2 id="current-gesture">—</h2>
+                <small id="gesture-caption">Waiting for your hand</small>
+            </article>
+
+            <article class="stat-card">
+                <p>FINGERS DETECTED</p>
+                <h2><span id="finger-count">0</span> / 5</h2>
+                <div class="progress-track">
+                    <div class="progress-bar" id="finger-progress"></div>
+                </div>
+            </article>
+
+            <article class="stat-card">
+                <p>SESSION EVENTS</p>
+                <h2 id="event-count">0</h2>
+                <small>Recognized gestures</small>
+            </article>
+        </section>
+
+        <section class="workspace-grid" id="studio">
+
+            <article class="panel">
+                <div class="panel-header">
+                    <div>
+                        <p class="eyebrow">INTERACTIVE WORKSPACE</p>
+                        <h2>Live Gesture Studio</h2>
+                    </div>
+                    <span class="status-pill" id="feed-badge">OFFLINE</span>
+                </div>
+
+                <div class="camera-stage">
+                    <div id="camera-placeholder">
+                        <div class="camera-symbol">✋</div>
+                        <h3>Ready when you are</h3>
+                        <p class="muted">Start the camera to detect your hand.</p>
+                    </div>
+
+                    <img
+                        id="camera-feed"
+                        class="hidden"
+                        alt="Live hand gesture detection"
+                    >
+                </div>
+
+                <div class="camera-controls">
+                    <p id="camera-subtitle">Your camera is ready to connect.</p>
+                    <button
+                        class="primary-button"
+                        id="connect-button"
+                        type="button"
+                    >Start Camera</button>
+                </div>
+
+                <p id="connection-notice" class="muted">
+                    Camera is currently disconnected.
+                </p>
+                <p id="stage-resolution" class="muted">AWAITING INPUT</p>
+            </article>
+
+            <div class="right-column">
+                <article class="panel">
+                    <p class="eyebrow">MODEL OUTPUT</p>
+                    <h2>Detection Result</h2>
+                    <div class="result-box">
+                        <div class="camera-symbol">✋</div>
+                        <h2 id="result-name">Awaiting gesture</h2>
+                        <p id="result-description" class="muted">
+                            Show your hand to the camera to get started.
+                        </p>
+                    </div>
+                    <div class="result-meta">
+                        <span>Detection engine</span>
+                        <strong>MediaPipe Hands</strong>
+                    </div>
+                    <div class="result-meta">
+                        <span>Input source</span>
+                        <strong id="input-source">Not connected</strong>
+                    </div>
+                </article>
+
+                <article class="panel">
+                    <p class="eyebrow">QUICK ACCESS</p>
+                    <h2>Gesture Library</h2>
+                    <div class="gesture-list">
+                        <div class="gesture-item"><span>✊</span> Fist</div>
+                        <div class="gesture-item"><span>✋</span> Open Palm</div>
+                        <div class="gesture-item"><span>☝️</span> One Finger</div>
+                        <div class="gesture-item"><span>✌️</span> Two Fingers / Peace</div>
+                        <div class="gesture-item"><span>👍</span> Thumbs Up*</div>
+                    </div>
+                    <small class="muted">*Thumbs up requires dedicated gesture classification.</small>
+                </article>
+            </div>
+        </section>
+
+        <section class="workspace-grid" id="analytics">
+            <article class="panel">
+                <p class="eyebrow">SESSION INSIGHTS</p>
+                <h2>Activity Overview</h2>
+                <div class="chart-summary">
+                    <strong id="chart-total">0</strong>
+                    <span>events recorded</span>
+                </div>
+                <svg viewBox="0 0 600 145" width="100%" role="img"
+                     aria-label="Gesture activity chart">
+                    <path id="chart-area-fill"
+                          d="M0 125 L600 125 L600 145 L0 145 Z"
+                          fill="#78f0ac" fill-opacity=".12"></path>
+                    <path id="chart-line"
+                          d="M0 125 L600 125"
+                          fill="none" stroke="#78f0ac" stroke-width="3"></path>
+                </svg>
+                <p class="muted">Activity updates as gestures are detected.</p>
+            </article>
+
+            <article class="panel" id="history">
+                <div class="panel-header">
+                    <div>
+                        <p class="eyebrow">RECENT EVENTS</p>
+                        <h2>Gesture History</h2>
+                    </div>
+                    <button class="secondary-button" id="clear-history" type="button">
+                        Clear all
+                    </button>
+                </div>
+                <div id="history-list">
+                    <p class="muted">No gestures recorded yet.</p>
+                </div>
+            </article>
+        </section>
+
+        <footer class="footer">
+            GESTURE.AI · COMPUTER VISION STUDIO
+            <br>Built with Python, OpenCV and MediaPipe
+        </footer>
+
+    </main>
+
+    <div id="toast" class="toast" role="status"></div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
